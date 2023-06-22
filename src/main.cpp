@@ -138,10 +138,10 @@ void usercontrol(void) {
     Sideways = Controller1.Axis4.position(); //sideways
 
 
-    FrontRightSpeed = Forwarde - Sideways + Turn;
-    FrontLeftSpeed = Forwarde + Sideways - Turn;
-    RearRightSpeed = Forwarde + Sideways + Turn;
-    RearLeftSpeed = Forwarde - Sideways - Turn;
+    FrontRightSpeed = Forwarde + Sideways + Turn;
+    FrontLeftSpeed = Forwarde - Sideways - Turn;
+    RearRightSpeed = Forwarde - Sideways + Turn;
+    RearLeftSpeed = Forwarde + Sideways - Turn;
 
     //deadband check and speed setting
 
