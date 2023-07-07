@@ -13,6 +13,8 @@ motor FrontLeft = motor(PORT4, ratio18_1, true);
 motor RearLeft = motor(PORT3, ratio18_1, false);
 motor FrontRight = motor(PORT14, ratio18_1, true);
 motor RearRight = motor(PORT13, ratio18_1, false);
+
+motor elevador = motor(PORT10,ratio36_1,true);
 // VEXcode generated functions
 
 
