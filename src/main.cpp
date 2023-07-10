@@ -117,13 +117,14 @@ RearRightTest();
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
-    int deadband = 10;
+    int deadband = 15;
     int FrontLeftSpeed = 0;
     int RearLeftSpeed = 0;
     int FrontRightSpeed = 0;
@@ -133,9 +134,9 @@ void usercontrol(void) {
     int Forwarde = 0;
     int Sideways = 0;
   
-    Turn = Controller1.Axis1.position(); //turn
-    Forwarde = Controller1.Axis3.position(); //forward
-    Sideways = Controller1.Axis4.position(); //sideways
+    Turn = ((Controller1.Axis1.position())*3)/2; //turn
+    Forwarde = ((Controller1.Axis3.position())*3)/2; //forward
+    Sideways = ((Controller1.Axis4.position())*3)/2; //sideways
 
 
     FrontRightSpeed = Forwarde + Sideways + Turn;
@@ -184,6 +185,27 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+    if(Controller1.ButtonX.pressing())
+    {
+      scissorlift.spin(forward);
+    }
+    else if(Controller1.ButtonB.pressing())
+    {
+      scissorlift.spin(reverse);
+    }
+    else if(Controller1.ButtonY.pressing())
+    {
+      ropelift.spin(forward);
+    }
+    else if(Controller1.ButtonA.pressing())
+    {
+      ropelift.spin(reverse);
+    }
+    else
+    {
+      scissorlift.stop();
+      ropelift.stop();
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.

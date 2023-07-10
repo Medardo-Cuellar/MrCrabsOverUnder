@@ -14,7 +14,12 @@ motor RearLeft = motor(PORT3, ratio18_1, false);
 motor FrontRight = motor(PORT14, ratio18_1, true);
 motor RearRight = motor(PORT13, ratio18_1, false);
 
-motor elevador = motor(PORT10,ratio36_1,true);
+motor scissorlift = motor(PORT10,ratio36_1,true);
+motor ropelift1 = motor(PORT11,ratio36_1,true);
+motor ropelift2 = motor(PORT12,ratio36_1,false);
+
+motor_group ropelift =motor_group(ropelift1,ropelift2);
+
 // VEXcode generated functions
 
 
