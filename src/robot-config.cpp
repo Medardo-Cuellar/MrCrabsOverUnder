@@ -15,8 +15,8 @@ motor FrontRight = motor(PORT14, ratio18_1, true);
 motor RearRight = motor(PORT13, ratio18_1, false);
 
 motor scissorlift = motor(PORT10,ratio36_1,true);
-motor ropelift1 = motor(PORT11,ratio36_1,true);
-motor ropelift2 = motor(PORT12,ratio36_1,false);
+motor ropelift1 = motor(PORT8,ratio36_1,true);
+motor ropelift2 = motor(PORT9,ratio36_1,false);
 
 motor_group ropelift =motor_group(ropelift1,ropelift2);
 
