@@ -14,10 +14,7 @@ extern motor RearLeft;
 extern motor FrontRight;
 extern motor RearRight;
 
-extern motor scissorlift;
-extern motor ropelift1;
-extern motor ropelift2;
-extern motor_group ropelift;
+extern motor lifter;
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 

@@ -52,58 +52,13 @@ void pre_auton(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-void FrontLeftTest(){
-  FrontLeft.spin(forward);
-  
-  Controller1.Screen.clearLine();
-  Controller1.Screen.setCursor(1, 10);
-  Controller1.Screen.print("FrontLeft");
-  task::sleep(4000);
-  FrontRight.stop(brakeType::brake);
 
-}
-void FrontRightTest(){
-  FrontRight.spin(forward);
-
-  
-  Controller1.Screen.clearLine();
-  Controller1.Screen.setCursor(1, 10);
-  Controller1.Screen.print("FrontRight");
-
-  task::sleep(4000);
-  FrontRight.stop(brakeType::brake);
-}
-void RearLeftTest(){
-  RearLeft.spin(forward);
-
-  Controller1.Screen.clearLine();
-  Controller1.Screen.setCursor(1, 10);
-  Controller1.Screen.print("RearLeft");
-
-  task::sleep(4000);
-  FrontRight.stop(brakeType::brake);
-}
-void RearRightTest(){
-  RearRight.spin(forward);
-
-  
-  Controller1.Screen.clearLine();
-  Controller1.Screen.setCursor(1, 10);
-  Controller1.Screen.print("RearRight");
-
-  task::sleep(4000);
-  RearRight.stop(brakeType::brake);
-}
 
 void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
 
-FrontLeftTest();
-FrontRightTest();
-RearLeftTest();
-RearRightTest();
 
 }
 
@@ -187,24 +142,16 @@ void usercontrol(void) {
     // ........................................................................
     if(Controller1.ButtonX.pressing())
     {
-      scissorlift.spin(forward);
+      lifter.spin(forward);
     }
     else if(Controller1.ButtonB.pressing())
     {
-      scissorlift.spin(reverse);
-    }
-    else if(Controller1.ButtonY.pressing())
-    {
-      ropelift.spin(forward);
-    }
-    else if(Controller1.ButtonA.pressing())
-    {
-      ropelift.spin(reverse);
+      lifter.spin(reverse);
     }
     else
     {
-      scissorlift.stop();
-      ropelift.stop();
+      lifter.stop(brakeType::hold);
+    
     }
 
     wait(20, msec); // Sleep the task for a short amount of time to
