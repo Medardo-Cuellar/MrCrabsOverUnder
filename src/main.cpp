@@ -17,6 +17,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#define PI 3.14159265
 
 using namespace vex;
 
@@ -84,20 +85,41 @@ void usercontrol(void) {
     int RearLeftSpeed = 0;
     int FrontRightSpeed = 0;
     int RearRightSpeed = 0;
-        
-    int Turn = 0;
-    int Forwarde = 0;
-    int Sideways = 0;
-  
-    Turn = ((Controller1.Axis1.position())*3)/2; //turn
-    Forwarde = ((Controller1.Axis3.position())*3)/2; //forward
-    Sideways = ((Controller1.Axis4.position())*3)/2; //sideways
+    
+    int x=0, y=0, volteo=0;
+    double theta = 0, fuerza = 0, seno = 0, coseno = 0, maximo = 0;
+
+    x=Controller1.Axis4.position();
+    y=Controller1.Axis3.position();
+    volteo = Controller1.Axis1.position();
+    
+    
+    theta = atan2(y,x);
+    fuerza = hypot(x,y);
+    seno = sin(theta - PI/4);
+    coseno = cos(theta - PI/4);
+    maximo = fmax(abs(seno),abs(coseno));
 
 
-    FrontRightSpeed = Forwarde + Sideways + Turn;
-    FrontLeftSpeed = Forwarde - Sideways - Turn;
-    RearRightSpeed = Forwarde - Sideways + Turn;
-    RearLeftSpeed = Forwarde + Sideways - Turn;
+    FrontRightSpeed = (fuerza * (coseno/maximo)) + volteo;
+    FrontLeftSpeed = (fuerza * (seno/maximo)) - volteo;
+    RearRightSpeed = (fuerza * (seno/maximo)) + volteo;
+    RearLeftSpeed = (fuerza * (coseno/maximo)) - volteo;
+
+/*
+    FrontRightSpeed = (fuerza * (coseno/maximo)) + volteo;
+    FrontLeftSpeed = (fuerza * (seno/maximo)) - volteo;
+    RearRightSpeed = (fuerza * (seno/maximo)) + volteo;
+    RearLeftSpeed = (fuerza * (coseno/maximo)) - volteo;
+
+    if((fuerza + abs(volteo)) > 1)
+    {
+      FrontRightSpeed /= fuerza + volteo;
+      FrontLeftSpeed /= fuerza + volteo;
+      RearRightSpeed /= fuerza + volteo;
+      RearLeftSpeed /= fuerza + volteo;
+    }
+ */   
 
     //deadband check and speed setting
 
@@ -131,11 +153,12 @@ void usercontrol(void) {
       // Set the speed to leftMotorSpeed
       RearRight.setVelocity(RearRightSpeed, percent);
     }
+
     FrontLeft.spin(forward);
     RearLeft.spin(forward);
     FrontRight.spin(forward);
     RearRight.spin(forward);
-
+/**/
     // ........................................................................
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
@@ -153,6 +176,20 @@ void usercontrol(void) {
       lifter.stop(brakeType::hold);
     
     }
+
+    Controller1.Screen.clearScreen();
+    Controller1.Screen.setCursor(1,2);
+    Controller1.Screen.print("L %d",FrontLeftSpeed);
+    Controller1.Screen.newLine();
+    Controller1.Screen.print("L %d",RearLeftSpeed);
+    Controller1.Screen.newLine();
+    Controller1.Screen.print("L %d",FrontRightSpeed);
+    Controller1.Screen.newLine();
+    Controller1.Screen.print("L %d",RearRightSpeed);
+    Controller1.Screen.newLine();
+
+
+    //Controller1.Screen.print(" %d    %d    %d ", x , y, volteo);
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
